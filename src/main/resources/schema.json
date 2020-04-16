@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Date": {
+      "type": "string"
+    },
+    "PreviousDate": {
+      "type": "string"
+    },
+    "PreviousURL": {
+      "type": "string"
+    },
+    "Timestamp": {
+      "type": "string"
+    },
+    "Valute": {
+      "type": "object",
+      "properties": {
+        "USD": {
+          "type": "object",
+          "properties": {
+            "ID": {
+              "type": "string"
+            },
+            "NumCode": {
+              "type": "string"
+            },
+            "CharCode": {
+              "type": "string"
+            },
+            "Nominal": {
+              "type": "integer"
+            },
+            "Name": {
+              "type": "string"
+            },
+            "Value": {
+              "type": "number"
+            },
+            "Previous": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        },
+        "EUR": {
+          "type": "object",
+          "properties": {
+            "ID": {
+              "type": "string"
+            },
+            "NumCode": {
+              "type": "string"
+            },
+            "CharCode": {
+              "type": "string"
+            },
+            "Nominal": {
+              "type": "integer"
+            },
+            "Name": {
+              "type": "string"
+            },
+            "Value": {
+              "type": "number"
+            },
+            "Previous": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      },
+      "additionalProperties": true,
+      "required": [
+        "USD",
+        "EUR"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "Date",
+    "PreviousDate",
+    "PreviousURL",
+    "Timestamp",
+    "Valute"
+  ]
+}
