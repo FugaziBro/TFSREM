@@ -1,9 +1,0 @@
-.gradle
-.idea/
-build/
-gradle/
-!/.idea/runConfigurations
-
-
-target/
-out/
