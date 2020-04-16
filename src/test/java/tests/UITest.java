@@ -12,7 +12,7 @@ import static info.EndPoints.EXCHANGE_ENDPOINT;
 import static info.Properties.*;
 
 
-public class TestBase {
+public class UITest {
 
         ExchangePage main = new ExchangePage();
         ExchangePage.Footer ft = new ExchangePage().new Footer();
@@ -28,27 +28,28 @@ public class TestBase {
         public void tinkoffExchangeUITest(){
                 main.openURL(TINKOFF_URI,EXCHANGE_ENDPOINT);
 
-                main.table.waitUntil(Condition.visible, DELAY);
+                main.returnTable().waitUntil(Condition.visible, DELAY);
                 ft.footer.waitUntil(Condition.visible, DELAY);
                 hd.header.waitUntil(Condition.visible, DELAY);
-                // hd.checkLinksAvailable();
-                // ft.checkLinksAvailable();
+                hd.checkLinksAvailable();
+                ft.checkLinksAvailable();
 
                 main.selectedArticleCheck();
 
-                main.checkPresetCurrency();
+                main.returnSelectors().get(0).shouldBe(Condition.text(RUB));
+                main.returnSelectors().get(1).shouldBe(Condition.text(EUR));
 
-                main.tableRowConvertation.get(2).should(Condition.text("€ → ₽"));
+                main.returnTableRow().get(2).should(Condition.text(EUR_TO_RUB));
 
-                main.ChangeValute(0,"Евро");
-                main.currencySelectors.get(1).should(Condition.text("Рубль"));
-                main.currencySelectors.get(0).should(Condition.text("Евро"));
+                main.ChangeValute(0,EUR);
+                main.returnSelectors().get(1).should(Condition.text(RUB));
+                main.returnSelectors().get(0).should(Condition.text(EUR));
 
-                main.ChangeValute(1,"Доллар");
+                main.ChangeValute(1,DOL);
 
-                main.currencySelectors.get(1).should(Condition.text("Доллар"));
+                main.returnSelectors().get(1).should(Condition.text(DOL));
 
-                main.tableRowConvertation.get(2).should(Condition.text("€ → $"));
+                main.returnTableRow().get(2).should(Condition.text(EUR_TO_DOL));
         }
 
 }

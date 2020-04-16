@@ -6,7 +6,9 @@ import com.codeborne.selenide.SelenideElement;
 import io.restassured.RestAssured;
 import org.openqa.selenium.By;
 
-import java.util.Currency;
+
+import java.text.NumberFormat;
+import java.text.ParseException;
 
 import static com.codeborne.selenide.Selenide.*;
 import static info.Configs.SELECTED_ARTICLE_COLOR;
@@ -15,11 +17,11 @@ public class ExchangePage {
 
     // Variables
 
-    public SelenideElement table = $(By.className("DesktopExchange__tableRoot_1MoWP"));
+    private SelenideElement table = $(By.className("DesktopExchange__tableRoot_1MoWP"));
     private SelenideElement selectedArticle = $(By.xpath("//span[text()='Курсы валют']"));
-    private ElementsCollection selectedCurrencies = $$(By.className("Select__value_1hzwD"));
-    public ElementsCollection tableRowConvertation = $$(By.className("DesktopExchange__th_AXtbR"));
-    public ElementsCollection currencySelectors = $$(By.xpath("//div[@class='Select__valueWrapper_Ni7om']"));
+    private ElementsCollection tableRowConvertation = $$(By.className("DesktopExchange__th_AXtbR"));
+    private ElementsCollection currencySelectors = $$(By.xpath("//div[@class='Select__valueWrapper_Ni7om']"));
+    private ElementsCollection currencyValues = $$(By.xpath("//div[@class='Text__text_primary_28uo7']"));
 
 
     //Methods
@@ -32,16 +34,26 @@ public class ExchangePage {
         selectedArticle.should(Condition.cssValue("color", SELECTED_ARTICLE_COLOR));
     }
 
-    public void checkPresetCurrency(){
-        selectedCurrencies.get(0).shouldBe(Condition.text("Рубль"));
-        selectedCurrencies.get(1).shouldBe(Condition.text("Евро"));
-        tableRowConvertation.get(2).should(Condition.text("€ → ₽"));
-    }
 
 
     public void ChangeValute(int selectorNum, String Currency){
         currencySelectors.get(selectorNum).click();
         $(By.xpath("//div[text()='"+Currency+"']")).click();
+    }
+
+    public Double returnValueInTable(int indexOfTable) throws ParseException {
+        String strValue = currencyValues.get(indexOfTable).getText();
+        return NumberFormat.getInstance().parse(strValue).doubleValue();
+    }
+
+    public ElementsCollection returnSelectors(){
+        return currencySelectors;
+    }
+    public ElementsCollection returnTableRow(){
+        return tableRowConvertation;
+    }
+    public SelenideElement returnTable(){
+        return table;
     }
 
 
