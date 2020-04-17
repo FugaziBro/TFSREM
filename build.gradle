@@ -29,16 +29,24 @@ repositories {
 
 
 dependencies {
+    // core tools
     implementation('com.codeborne:selenide:5.10.0')
     testImplementation(group: 'junit', name: 'junit', version: '4.12')
-
     implementation('io.rest-assured:rest-assured:4.3.0')
-    implementation('io.rest-assured:json-schema-validator:4.3.0')
 
+    // validators
+    implementation('io.rest-assured:json-schema-validator:4.3.0')
     implementation('org.assertj:assertj-core:3.11.1')
 
-    compileOnly 'org.projectlombok:lombok:1.18.12'
-    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    //lombok
+    compileOnly ('org.projectlombok:lombok:1.18.12')
+    annotationProcessor ('org.projectlombok:lombok:1.18.12')
+
+    //adaptors
+     testImplementation('io.cucumber:cucumber-java:4.2.0')
+     testImplementation('io.cucumber:cucumber-junit:4.2.0')
+     implementation ('io.qameta.allure:allure-cucumber3-jvm:2.8.1')
+     implementation("io.qameta.allure:allure-junit4:2.12.1")
 }
 
 allure {
